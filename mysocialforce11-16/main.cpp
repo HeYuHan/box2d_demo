@@ -1,5 +1,8 @@
 
 #include "SimulationSocialForce.h"
+#include "SimulationData.h"
+
+using namespace Json;
 //受力大小，每一帧都会施加
 
 //按b暂停
@@ -109,8 +112,14 @@ bool InitData()
 	}
 	return true;
 }
+
 int main(int argc, char** argv)
 {
+	SimulationData sd;
+	ifstream ifs("frame_data.txt");
+	sd.FormatData(ifs);
+	getchar();
+	return 0;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowPosition(0, 0);

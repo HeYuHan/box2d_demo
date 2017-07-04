@@ -87,6 +87,7 @@ public:
 	virtual void Exit();
 	virtual void Update(float frame_time);
 	virtual void Draw();
+	virtual void OnKeyDown(unsigned char key, int x, int y);
 	void InitWorld();
 	void InitGround();
 	void InitObstacle();
@@ -95,7 +96,7 @@ public:
 	b2Vec2 SocialForce(ShapeInfo* infos);
 	ShapeInfo* NewShapeInfo();
 	void RemoveShapeInfo(ShapeInfo* info);
-	virtual void OnKeyDown(unsigned char key, int x, int y);
+	
 	//构建一个有至少3个点组成的一个封闭图形
 	b2Body* CreatePolygonShape(b2Vec2 *points, int count);
 	b2Body* CreateBox(ShapeInfo* info);

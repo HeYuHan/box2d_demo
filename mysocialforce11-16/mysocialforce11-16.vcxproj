@@ -145,6 +145,7 @@
     <ClInclude Include="json\writer.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SimulationBase.h" />
+    <ClInclude Include="SimulationData.h" />
     <ClInclude Include="SimulationSocialForce.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -207,6 +208,7 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SimulationBase.cpp" />
+    <ClCompile Include="SimulationData.cpp" />
     <ClCompile Include="SimulationSocialForce.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>

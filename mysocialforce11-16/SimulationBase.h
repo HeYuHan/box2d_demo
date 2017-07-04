@@ -26,4 +26,5 @@ private:
 int random(int a, int b);
 float random(float a, float b);
 b2Vec3 RandomColor();
+void string_replace(string&s1, const string&s2, const string&s3);
 #endif // !SimulationBase_h
