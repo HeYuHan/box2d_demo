@@ -1,5 +1,7 @@
 #include "SimulationData.h"
-SimulationData::SimulationData()
+SimulationData::SimulationData():
+	frame_count(0),
+	play_rate(1)
 {
 }
 
@@ -7,7 +9,7 @@ SimulationData::~SimulationData()
 {
 }
 
-void SimulationData::FormatData(ifstream & input_stream)
+bool SimulationData::FormatData(ifstream & input_stream)
 {
 	if (!input_stream.fail())
 	{
@@ -32,6 +34,7 @@ void SimulationData::FormatData(ifstream & input_stream)
 						delete fd;
 					}
 					fd=new FrameData;
+					
 					all_frame_datas[id] = fd;
 					int data_size = Root.size() - 1;
 					fd->id = id;
@@ -56,28 +59,56 @@ void SimulationData::FormatData(ifstream & input_stream)
 				}
 			}
 		}
+		return true;
 	}
-	cout << all_frame_datas.size();
+	return false;
 }
 
 bool SimulationData::Init()
 {
+	frame_count = 0;
+	
+
 	return true;
 }
 
 void SimulationData::Exit()
 {
-
+	for (auto data : all_frame_datas)
+	{
+		delete[] data.second->data;
+		delete data.second;
+	}
+	all_frame_datas.clear();
 }
 
 void SimulationData::Update(float frame_time)
 {
-
+	frame_count += frame_time*play_rate;
 }
 
 void SimulationData::Draw()
 {
-
+	for (auto it : all_frame_datas)
+	{
+		FrameData *data = it.second;
+		int play_frame = frame_count;
+		int play_index = play_frame - data->frame_start;
+		int unplay = data->size - (play_frame -data->frame_start);
+		
+		if (play_index >0 && play_index < data->size)
+		{
+			b2Vec2 pos = data->data[play_index];
+			glColor3f(1, 1, 1);
+			glBegin(GL_LINE_LOOP);
+			int iter = 20;
+			int r = 10;
+			for (int i = 0; i < iter; ++i)
+				OffsetDraw(pos.x + r*cos(2 * PI / iter * i), pos.y + r*sin(2 * PI / iter * i));
+			glEnd();
+		}
+	}
+	
 }
 
 void SimulationData::OnKeyDown(unsigned char key, int x, int y)

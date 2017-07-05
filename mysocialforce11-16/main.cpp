@@ -101,7 +101,8 @@ void OnKeyDown(unsigned char key, int x, int y)
 }
 bool InitData()
 {
-	simulation = new SimulationSocialForce();
+	//scene1
+	/*simulation = new SimulationSocialForce();
 	simulation->m_SenceHeight = SceneHeight;
 	simulation->m_SenceWidth = SceneWidth;
 	simulation->Init();
@@ -110,16 +111,23 @@ bool InitData()
 	{
 		return false;
 	}
-	return true;
+	return true;*/
+	//scene2;
+	auto sd=new SimulationData();
+	simulation = sd;
+	//控制播放速度
+	sd->play_rate = 2;
+	sd->m_SenceHeight = SceneHeight;
+	sd->m_SenceWidth = SceneWidth;
+	sd->Init();
+	
+	ifstream in_data("frame_data.txt");
+	return sd->FormatData(in_data);
 }
 
 int main(int argc, char** argv)
 {
-	SimulationData sd;
-	ifstream ifs("frame_data.txt");
-	sd.FormatData(ifs);
-	getchar();
-	return 0;
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowPosition(0, 0);
